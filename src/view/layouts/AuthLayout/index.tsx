@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router';
 import { Brand } from '../../components/Brand';
-import appExample from '../../../assets/Login-side.png';
-import { SideBrand } from './SideBrand';
+import appExample from '../../../assets/auth-side.png';
+import { SideBrand } from './components/SideBrand';
 
 export function AuthLayout() {
   return (
@@ -20,7 +20,7 @@ export function AuthLayout() {
           <Outlet />
         </div>
 
-        <div className="rounded-2xl hidden lg:flex lg:flex-col lg:items-center lg:justify-center max-w-[650px] w-[40%]  max-h-[900px] ">
+        <div className="rounded-2xl hidden lg:flex lg:flex-col lg:items-center lg:justify-center max-w-[650px] w-[35%] max-h-[900px] ">
           <img src={appExample} className="  " />
           <SideBrand />
         </div>

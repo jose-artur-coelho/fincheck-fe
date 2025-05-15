@@ -152,15 +152,11 @@
 }
 
 @layer utilities {
-  .rounded-default {
-    border-radius: 16px;
-  }
-
-  .rounded-medium {
-    border-radius: 8px;
-  }
-
-  .rounded-max {
-    border-radius: 100%;
+  .blurred-text {
+    transition: filter 0.3s ease-out, text-shadow 0.5s ease-out;
+    filter: blur(13px);
+    pointer-events: none;
+    user-select: none;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
 }

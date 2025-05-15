@@ -1,19 +1,19 @@
 import { createBrowserRouter, redirect } from 'react-router';
-import { SplashScreen } from './view/pages/SplashScreen';
-import { AuthLayout } from './view/pages/AuthLayout';
-import { LoginForm } from './view/pages/AuthLayout/LoginForm';
-import { Input } from './view/components/Input';
-import { SignUpForm } from './view/pages/AuthLayout/SignUpForm';
+import { LaunchScreen } from './view/pages/LaunchScreen';
+import { AuthLayout } from './view/layouts/AuthLayout';
+import { Login } from './view/pages/Login';
+import { SignUp } from './view/pages/SignUp';
+import { Home } from './view/pages/DashBoard';
 
-export const router = createBrowserRouter([
-  { path: '/', Component: SplashScreen },
+export const Router = createBrowserRouter([
+  { path: '/', Component: LaunchScreen },
   {
     Component: AuthLayout,
     children: [
-      { index: true, path: '/auth', loader: () => redirect('login') },
-      { index: true, path: '/auth/login', Component: LoginForm },
-      { index: true, path: '/auth/signup', Component: SignUpForm },
+      { path: '/auth', loader: () => redirect('login') },
+      { path: '/auth/login', Component: Login },
+      { path: '/auth/signup', Component: SignUp },
     ],
   },
-  { path: 'teste', element: <Input label="teste" type="text" /> },
+  { path: '/home', Component: Home },
 ]);

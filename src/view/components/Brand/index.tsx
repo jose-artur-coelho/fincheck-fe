@@ -1,4 +1,4 @@
-import { Logo } from '../Logo';
+import { FincheckIcon } from '../icons/FincheckIcon';
 
 type BrandProps = {
   color: 'gray-0' | 'gray-5' | 'teal-9';
@@ -15,10 +15,11 @@ export function Brand({ color, size }: BrandProps) {
     'gray-5': 'text-gray-5',
     'teal-9': 'text-teal-9',
   };
+
   return (
     <div className="flex items-center justify-center gap-1 ">
-      <Logo color={color} size={size} />
-      <p className={`${sizeMap[size]} ${colorMap[color]}`}>fincheck</p>
+      <FincheckIcon color={color} size={size} />
+      <p className={`${sizeMap[size]} ${colorMap[color]} `}>fincheck</p>
     </div>
   );
 }
