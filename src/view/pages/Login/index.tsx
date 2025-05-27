@@ -1,10 +1,15 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { FieldError } from '../../components/FieldError';
+import { useState } from 'react';
+import { LoadingIcon } from '../../components/icons/LoadingIcon';
+import { httpService } from '../../../service/HttpService';
+import toast from 'react-hot-toast';
+import { useToken } from '../../../hooks/useToken';
 
 const loginSchema = z.object({
   email: z
@@ -20,6 +25,10 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 export function Login() {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [, setToken] = useToken();
+
   const {
     register,
     handleSubmit,
@@ -28,8 +37,34 @@ export function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-  function onSubmit(data: LoginSchema) {
-    console.log(data);
+  async function onSubmit(data: LoginSchema) {
+    setIsLoading((prev) => !prev);
+    try {
+      const response = await httpService.login(data);
+      setToken(response.accessToken);
+      navigate('/dashboard');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'isAxiosError' in err) {
+        const axiosError = err as import('axios').AxiosError;
+        if (axiosError.response) {
+          if (axiosError.response.status === 401) {
+            toast.error(
+              'E-mail ou senha inválidos. Por favor, tente novamente.'
+            );
+          } else {
+            toast.error(
+              'Falha no servidor. Por favor, tente novamente mais tarde.'
+            );
+          }
+        } else {
+          toast.error(
+            'Falha no servidor. Por favor, tente novamente mais tarde.'
+          );
+        }
+      }
+    } finally {
+      setIsLoading((prev) => !prev);
+    }
   }
 
   return (
@@ -38,7 +73,7 @@ export function Login() {
         <h2 className="text-[24px] font-bold">Entre em sua conta</h2>
         <p className="text-[16px]">
           Novo por aqui?{' '}
-          <Link className="text-teal-9" to="/auth/signup">
+          <Link className="text-teal-9" to="/signup">
             Crie uma conta
           </Link>
         </p>
@@ -54,6 +89,7 @@ export function Login() {
           error={Boolean(errors.email)}
           {...register('email')}
         />
+
         {errors.email?.message && (
           <FieldError errorMessage={errors.email.message} />
         )}
@@ -64,11 +100,18 @@ export function Login() {
           {...register('password')}
           error={Boolean(errors.password)}
         />
+
         {errors.password?.message && (
           <FieldError errorMessage={errors.password.message} />
         )}
 
-        <Button>Entrar</Button>
+        {isLoading ? (
+          <Button disabled>
+            <LoadingIcon color="teal" />
+          </Button>
+        ) : (
+          <Button>Entrar</Button>
+        )}
       </form>
     </div>
   );

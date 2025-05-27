@@ -3,7 +3,17 @@ import { Brand } from '../../components/Brand';
 import appExample from '../../../assets/auth-side.png';
 import { SideBrand } from './components/SideBrand';
 
+import { LaunchScreen } from '../../components/LaunchScreen';
+
+import { useAuthGuard } from '../../../hooks/useAuthGuard';
+
 export function AuthLayout() {
+  const { isLoading } = useAuthGuard({ redirectTo: '/dashboard' });
+
+  if (isLoading) {
+    return <LaunchScreen />;
+  }
+
   return (
     <div
       className="bg-gray-0 min-h-screen min-w-screen 

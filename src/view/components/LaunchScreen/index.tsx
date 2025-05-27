@@ -1,5 +1,5 @@
-import { Brand } from '../../components/Brand';
-import { LoadingIcon } from '../../components/icons/LoadingIcon';
+import { Brand } from '../Brand';
+import { LoadingIcon } from '../icons/LoadingIcon';
 
 export function LaunchScreen() {
   return (

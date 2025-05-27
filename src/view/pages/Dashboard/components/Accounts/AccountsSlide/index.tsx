@@ -2,14 +2,13 @@ import { Swiper as SwiperType } from 'swiper/types';
 import 'swiper/swiper.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { AccountCard } from '../../../../../components/AccountCard';
-import { Account } from '../../../../../../types/Account';
+import { useBankAccountsStore } from '../../../../../../store/BankAccountsStore';
 
 type AccountsSlideProps = {
   swiperRef: React.RefObject<SwiperType | null>;
   setIsBeginning: React.Dispatch<React.SetStateAction<boolean>>;
   setIsEnd: React.Dispatch<React.SetStateAction<boolean>>;
   handleSlideChange: () => void;
-  contas: Account[];
 };
 
 export function AccountsSlide({
@@ -17,8 +16,9 @@ export function AccountsSlide({
   setIsBeginning,
   setIsEnd,
   handleSlideChange,
-  contas,
 }: AccountsSlideProps) {
+  const bankAccounts = useBankAccountsStore((state) => state.bankAccounts);
+
   return (
     <Swiper
       onSwiper={(swiper) => {
@@ -36,13 +36,9 @@ export function AccountsSlide({
       spaceBetween={16}
       slidesPerView={1.5}
     >
-      {contas.map((conta) => (
-        <SwiperSlide>
-          <AccountCard
-            type={conta.type}
-            balance={conta.balance}
-            name={conta.name}
-          />
+      {bankAccounts.map((acc) => (
+        <SwiperSlide key={acc.id}>
+          <AccountCard type={acc.type} balance={acc.balance} name={acc.name} />
         </SwiperSlide>
       ))}
     </Swiper>

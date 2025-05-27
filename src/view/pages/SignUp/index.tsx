@@ -41,7 +41,7 @@ export function SignUp() {
         <h2 className="text-[24px] font-bold">Crie sua conta</h2>
         <p className="text-[16px]">
           Já possui uma conta?{' '}
-          <Link className="text-teal-9" to="/auth/login">
+          <Link className="text-teal-9" to="/login">
             Fazer login
           </Link>
         </p>

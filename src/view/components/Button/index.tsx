@@ -22,7 +22,7 @@ export function Button({
     <button
       disabled={disabled}
       className={`text-center text-gray-0 h-14 px-6 rounded-2xl w-full
-      cursor-pointer disabled:bg-gray-1 disabled:text-gray-4 disabled:cursor-default disabled:border-none ${variantMap[variant]} `}
+      flex justify-center items-center cursor-pointer disabled:bg-gray-1 disabled:text-gray-4 disabled:cursor-default disabled:border-none ${variantMap[variant]} `}
     >
       {children}
     </button>
