@@ -1,8 +1,8 @@
 import { createBrowserRouter, redirect } from 'react-router';
-import { AuthLayout } from './view/layouts/AuthLayout';
-import { Login } from './view/pages/Login';
-import { SignUp } from './view/pages/SignUp';
-import { Dashboard } from './view/pages/Dashboard';
+import { AuthLayout } from './view/layouts/AuthLayout/AuthLayout';
+import { Login } from './view/pages/Login/Login';
+import { SignUp } from './view/pages/SignUp/SignUp';
+import { Dashboard } from './view/pages/Dashboard/DashBoard';
 
 export const Router = createBrowserRouter([
   {
